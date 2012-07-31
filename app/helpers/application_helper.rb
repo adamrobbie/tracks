@@ -1,7 +1,7 @@
 # The methods added to this helper will be available to all templates in the
 # application.
 module ApplicationHelper
-  
+
   # Replicates the link_to method but also checks request.request_uri to find
   # current page. If that matches the url, the link is marked id = "current"
   #
@@ -15,14 +15,14 @@ module ApplicationHelper
     end
     url = options.is_a?(String) ? options : self.url_for(options, *parameters_for_method_reference)
     id_tag = (request.request_uri == url) ? " id=\"current\"" : ""
-    
+
     "<a href=\"#{url}\"#{tag_options}#{id_tag}>#{name || url}</a>"
   end
-  
+
   def days_from_today(date)
     Integer (date.in_time_zone.to_date - current_user.time.to_date)
   end
-  
+
   # Check due date in comparison to today's date Flag up date appropriately with
   # a 'traffic light' colour code
   #
@@ -35,7 +35,7 @@ module ApplicationHelper
     color = :red if days < 0
     color = :green if days > 7
     color = colors[days] if color.nil?
-    
+
     return content_tag(:a, {:title => format_date(due)}) {
       content_tag(:span, {:class => color}) {
         case days
@@ -74,7 +74,7 @@ module ApplicationHelper
     end
 
     days = days_from_today(due)
-       
+
     case days
     when 0
       "<span class=\"amber\">"+ format_date(due) + "</span>"
@@ -93,9 +93,9 @@ module ApplicationHelper
       end
     end
   end
-  
+
   # Returns a count of next actions in the given context or project. The result
-  # is count and a string descriptor, correctly pluralised if there are no
+  # is count and a string descriptor, correctly pluralized if there are no
   # actions or multiple actions
   #
   def count_undone_todos_phrase(todos_parent)
@@ -111,11 +111,11 @@ module ApplicationHelper
     s += ", #{t('common.note', :count => project.note_count)}" unless project.note_count == 0
     s
   end
-  
+
   def link_to_context(context, descriptor = sanitize(context.name))
     link_to( descriptor, context, :title => "View context: #{context.name}" )
   end
-  
+
   def link_to_project(project, descriptor = sanitize(project.name))
     link_to( descriptor, project, :title => "View project: #{project.name}" )
   end
@@ -125,23 +125,23 @@ module ApplicationHelper
       url_for({:controller => 'notes', :action => 'edit', :id => note.id}),
       {:id => "link_edit_#{dom_id(note)}", :class => "note_edit_settings"})
   end
-  
+
   def link_to_project_mobile(project, accesskey, descriptor = sanitize(project.name))
     link_to( descriptor, project_path(project, :format => 'm'), {:title => "View project: #{project.name}", :accesskey => accesskey} )
   end
-  
+
   def item_link_to_context(item)
     descriptor = "[C]"
     descriptor = "[#{item.context.name}]" if prefs.verbose_action_descriptors
     link_to_context( item.context, descriptor )
   end
-  
+
   def item_link_to_project(item)
     descriptor = "[P]"
     descriptor = "[#{item.project.name}]" if prefs.verbose_action_descriptors
     link_to_project( item.project, descriptor )
   end
-  
+
   def render_flash
     render :partial => 'shared/flash', :object => flash
   end
@@ -233,7 +233,7 @@ module ApplicationHelper
       javascript_include_tag("i18n/jquery.ui.datepicker-#{locale}.js")
     end
   end
-  
+
   def determine_done_path
     case @controller.controller_name
     when "contexts"
@@ -250,7 +250,7 @@ module ApplicationHelper
       done_todos_path
     end
   end
-  
+
   def determine_all_done_path
     case @controller.controller_name
     when "contexts"

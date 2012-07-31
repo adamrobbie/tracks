@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
   # end
 
   # Returns a count of next actions in the given context or project The result
-  # is count and a string descriptor, correctly pluralised if there are no
+  # is count and a string descriptor, correctly pluralized if there are no
   # actions or multiple actions
   #
   def count_undone_todos_phrase(todos_parent)
@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
   end
 
   def for_autocomplete(coll, substr)
-    if substr # protect agains empty request
+    if substr # protect against empty request
       filtered = coll.find_all{|item| item.name.downcase.include? substr.downcase}
       json_elems = Array[*filtered.map{ |e| {:id => e.id.to_s, :value => e.name} }].to_json
       return json_elems
@@ -145,15 +145,15 @@ class ApplicationController < ActionController::Base
 
   # Here's the concept behind this "mobile content negotiation" hack: In
   # addition to the main, AJAXy Web UI, Tracks has a lightweight low-feature
-  # 'mobile' version designed to be suitablef or use from a phone or PDA. It
-  # makes some sense that tne pages of that mobile version are simply alternate
+  # 'mobile' version designed to be suitable or used from a phone or PDA. It
+  # makes some sense that the pages of that mobile version are simply alternate
   # representations of the same Todo resources. The implementation goal was to
   # treat mobile as another format and be able to use respond_to to render both
   # versions. Unfortunately, I ran into a lot of trouble simply registering a
   # new mime type 'text/html' with format :m because :html already is linked to
   # that mime type and the new registration was forcing all html requests to be
   # rendered in the mobile view. The before_filter and after_filter hackery
-  # below accomplishs that implementation goal by using a 'fake' mime type
+  # below accomplishes that implementation goal by using a 'fake' mime type
   # during the processing and then setting it to 'text/html' in an
   # 'after_filter' -LKM 2007-04-01
   def mobile?
@@ -188,7 +188,7 @@ class ApplicationController < ActionController::Base
       todo.tags.reload
     end
 
-    # increate number of occurences created from recurring todo
+    # increment number of occurrences created from recurring todo
     rt.inc_occurences
 
     # mark recurring todo complete if there are no next actions left

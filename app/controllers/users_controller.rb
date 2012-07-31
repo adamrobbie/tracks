@@ -161,7 +161,7 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    # is used for focing password change after sha->bcrypt upgrade
+    # is used for forcing password change after sha->bcrypt upgrade
     @user.change_password(params[:user][:password], params[:user][:password_confirmation])
     notify :notice, t('users.password_updated')
     redirect_to preferences_path
@@ -179,7 +179,7 @@ class UsersController < ApplicationController
       authenticate_with_open_id do |result, identity_url|
         if result.successful?
           # Success means that the transaction completed without error. If info
-          # is nil, it means that the user cancelled the verification.
+          # is nil, it means that the user canceled the verification.
           @user.auth_type = 'open_id'
           @user.open_id_url = identity_url
           if @user.save
